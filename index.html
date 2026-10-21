@@ -136,6 +136,7 @@
   .q-water { border-color: var(--water-accent); }
   .q-fire { border-color: var(--fire-accent); }
   .q-air { border-color: var(--air-accent); }
+  .q-spirit { border-color: var(--accent-gold); }
 
   .draw-btn, .action-btn {
     background: var(--accent-gold);
@@ -386,6 +387,15 @@
         <button class="draw-btn" onclick="drawCard('soul')">Draw Card 🐾</button>
         <div id="reading-soul" class="reading-output">Click draw to receive guidance...</div>
       </div>
+
+      <div class="quadrant-card q-spirit">
+        <span class="paw-anim" id="paw-yesno">🐾</span>
+        <h3>Q5: Yes or No</h3>
+        <p><strong>Element:</strong> Spirit</p>
+        <p>Think of a question in your mind, ask, and receive a clear Yes or No.</p>
+        <button class="draw-btn" onclick="askYesNo()">Ask 🔮</button>
+        <div id="reading-yesno" class="reading-output">Think of your question, then ask...</div>
+      </div>
     </div>
   </section>
 
@@ -568,6 +578,24 @@
         <button class="cta-link" onclick="openBookingModal('Deep Reading: ${drawn.name}')">Want a deeper, fully personalized reading? Book a 1-on-1 session →</button>
       `;
     }, 500);
+  }
+
+  // YES / NO ORACLE CARD
+  function askYesNo() {
+    const paw = document.getElementById('paw-yesno');
+    const container = document.getElementById('reading-yesno');
+    paw.style.display = 'block';
+    container.innerHTML = '<p style="text-align:center;">🔮 Consulting the universe...</p>';
+
+    setTimeout(() => {
+      paw.style.display = 'none';
+      const answer = Math.random() < 0.5 ? 'YES' : 'NO';
+      const symbol = answer === 'YES' ? '✅' : '❌';
+      container.innerHTML = `
+        <p style="text-align:center; color: var(--accent-gold); font-size: 2rem; margin: 5px 0;"><strong>${symbol} ${answer}</strong></p>
+        <button class="cta-link" onclick="openBookingModal('Deep Reading: Yes/No Question')">Want a deeper, fully personalized reading? Book a 1-on-1 session →</button>
+      `;
+    }, 900);
   }
 
   // ACTIONABLE EMAIL SYSTEM
